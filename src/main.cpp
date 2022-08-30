@@ -3,55 +3,46 @@
 
 int main(void)
 {
-
     mfrc522 rfid(new Spi(10, 3000000));
-	//mfrc522_init(&hspi1);
-	uint8_t byte;
-	uint8_t str[MAX_LEN];
-	byte = 0x55;       //just to check that byte is getting loaded and printed
-	//LCDHexDumpXY(0,0,byte);
-	delay(1500);
-	//check version of the reader
-	byte = rfid.mfrc522_read(VersionReg);
+    uint8_t byte;
+    uint8_t str[MAX_LEN];
+    byte = 0x55; // just to check that byte is getting loaded and printed
+    delay(1500);
 
-	printf("ver --> %0x\n", byte);
-	if(byte == 0x92)
-	{
-		printf("MIFARE RC522v2\r\n");
-		printf("Detected\r\n");
-	}else if(byte == 0x91 || byte==0x90)
-	{
-		printf("MIFARE RC522v1\r\n");
-		printf("Detected\r\n");
-	}else
-	{
-		printf("No reader found\r\n");
-	}
+    // check version of the reader
+    byte = rfid.mfrc522_read(VersionReg);
 
+    printf("ver --> %0x\n", byte);
+    if (byte == 0x92)
+    {
+        printf("MIFARE RC522v2\r\n");
+        printf("Detected\r\n");
+    }
+    else if (byte == 0x91 || byte == 0x90)
+    {
+        printf("MIFARE RC522v1\r\n");
+        printf("Detected\r\n");
+    }
+    else
+    {
+        printf("No reader found\r\n");
+    }
 
-	/* USER CODE END 2 */
+    while (1)
+    {
+        byte = rfid.mfrc522_request(PICC_REQALL, str);
+        printf("byte-->%d ", byte);
+        if (byte == CARD_FOUND)
+        {
+            for (int i = 0; i < MAX_LEN; i++)
+                str[i] = ' ';
+            byte = rfid.mfrc522_get_card_serial(str);
 
-	/* Infinite loop */
-	/* USER CODE BEGIN WHILE */
-	while (1)
-	{
-		byte = rfid.mfrc522_request(PICC_REQALL,str);
-		printf("byte-->%d ", byte);
-		if (byte == CARD_FOUND)
-		{
-			for (int i=0; i < MAX_LEN; i++)
-				str[i] = ' ';
-			byte = rfid.mfrc522_get_card_serial(str);
-
-			for (int i=0; i < 5; i++)
-				printf("%02x ", str[i]);
-			printf("\n");
-		}
-		delay(1000);
-		printf("hihi\n");
-		/* USER CODE END WHILE */
-
-		/* USER CODE BEGIN 3 */
-	}
-	/* USER CODE END 3 */
+            for (int i = 0; i < 5; i++)
+                printf("%02x ", str[i]);
+            printf("\n");
+        }
+        delay(1000);
+        printf("hihi\n");
+    }
 }

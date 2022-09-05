@@ -4,13 +4,13 @@
 #include <wiringPiSPI.h>
 #include <iostream>
 
-class Spi
+class SPI
 {
 public:
 
-    Spi();
-    Spi(int chipSelectPinNum, int spiSpeed);
-    ~Spi();
+    SPI();
+    SPI(int chipSelectPinNum, int spiSpeed);
+    ~SPI();
     void spi_init();                        // spi.c line 8
     uint8_t spi_transmit(uint8_t data);     // spi.c line 15
     void sendByte(uint8_t data);

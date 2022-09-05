@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    mfrc522 rfid(new Spi(10, 3000000));
+    mfrc522 rfid(new SPI(10, 3000000));
     uint8_t byte;
     uint8_t str[MAX_LEN];
     byte = 0x55; // just to check that byte is getting loaded and printed

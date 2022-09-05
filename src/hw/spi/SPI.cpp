@@ -1,6 +1,6 @@
-#include "Spi.h"
+#include "SPI.h"
 
-Spi::Spi(int chipSelectPinNum, int spiSpeed)
+SPI::SPI(int chipSelectPinNum, int spiSpeed)
     : spi_cs(chipSelectPinNum), spi_speed(spiSpeed)
 {
     if (wiringPiSetup() < 0) {
@@ -16,48 +16,48 @@ Spi::Spi(int chipSelectPinNum, int spiSpeed)
     }
 }
 
-Spi::~Spi()
+SPI::~SPI()
 {
     
 }
 
-void Spi::chipSelected()
+void SPI::chipSelected()
 {
     digitalWrite(spi_cs, LOW);
 }
 
-void Spi::chipDeselected()
+void SPI::chipDeselected()
 {
     digitalWrite(spi_cs, HIGH);
 }
 
-void Spi::txData(int channel, uint8_t* data, size_t size)
+void SPI::txData(int channel, uint8_t* data, size_t size)
 {
     wiringPiSPIDataRW(channel, data, size);
 }
 
-uint8_t Spi::spi_transmit(uint8_t data)
+uint8_t SPI::spi_transmit(uint8_t data)
 {
     txData(spi_channel_0, &data, 1);
 
     return data;
 }
 
-void Spi::sendByte(uint8_t data)
+void SPI::sendByte(uint8_t data)
 {
     chipSelected();
     txData(spi_channel_0, &data, 1);
     chipDeselected();
 }
 
-void Spi::sendStream(uint8_t* data, size_t size)
+void SPI::sendStream(uint8_t* data, size_t size)
 {
     chipSelected();
     txData(spi_channel_0, data, size);
     chipDeselected();
 }
 
-uint8_t Spi::receiveByte()
+uint8_t SPI::receiveByte()
 {
     uint8_t tempData;
     chipSelected();
@@ -67,19 +67,19 @@ uint8_t Spi::receiveByte()
     return tempData;
 }
 
-void Spi::receiveStream(uint8_t* rxData, size_t size)
+void SPI::receiveStream(uint8_t* rxData, size_t size)
 {
     chipSelected();
     txData(spi_channel_0, rxData, size);
     chipDeselected();
 }
 
-void Spi::ENABLE_CHIP(void)
+void SPI::ENABLE_CHIP(void)
 {
     chipSelected();
 }
 
-void Spi::DISABLE_CHIP(void)
+void SPI::DISABLE_CHIP(void)
 {
     chipDeselected();
 }

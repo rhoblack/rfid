@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Spi.h"
+#include "SPI.h"
 #include "mfrc522_cmd.h"
 #include "mfrc522_reg.h"
 
@@ -36,7 +36,7 @@ class mfrc522
 {
 public:
     mfrc522();
-    mfrc522(Spi* spi);
+    mfrc522(SPI* spi);
     ~mfrc522();
 
     // void mfrc522_init(SPI_HandleTypeDef *hspi);
@@ -48,5 +48,5 @@ public:
 private:
     void mfrc522_reset();
     void mfrc522_write(uint8_t reg, uint8_t data);
-    Spi* mfrcSpi;
+    SPI* mfrcSpi;
 };

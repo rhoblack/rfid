@@ -1,7 +1,7 @@
 add_executable(${PROJECT_NAME}
     main.cpp
     ./hw/rfid/mfrc522.cpp
-    ./hw/spi/Spi.cpp
+    ./hw/spi/SPI.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

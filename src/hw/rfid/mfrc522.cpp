@@ -5,7 +5,7 @@ mfrc522::mfrc522()
 {
 }
 
-mfrc522::mfrc522(Spi *spi)
+mfrc522::mfrc522(SPI *spi)
     : mfrcSpi(spi)
 {
     uint8_t byte;

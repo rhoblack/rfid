@@ -1,3 +1,17 @@
+/*
+RFID-RC522  
+SDA  ----- SS, chip select
+SCK  ----- SCK
+MOSI ----- MOSI
+MISO ----- MISO
+IRQ  ----- N.C
+GND  ----- GND
+RST  ----- +3.3V
+VCC  ----- +3.3v
+*/
+
+
+
 #include "mfrc522.h"
 #include <iostream>
 
